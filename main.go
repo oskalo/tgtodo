@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 	"strconv"
 	"strings"
 
@@ -19,7 +20,10 @@ var lastTaskID int
 
 func main() {
 	// Отримуємо токен вашого бота з змінної оточення.
-	botToken := "508256907:AAE1pGaC9OWVoD71yRojtWz-aNG6PtOnd84" //так робити не можна
+	botToken := os.Getenv("BOT_TOKEN")
+	if botToken == "" {
+		log.Fatal("BOT_TOKEN не встановлено у змінних оточення")
+	}
 
 	// Створюємо нового бота з використанням отриманого токену.
 	bot, err := tgbotapi.NewBotAPI(botToken)
